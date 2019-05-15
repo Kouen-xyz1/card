@@ -1,0 +1,15 @@
+aa
+##
+<%=current_user.email%>
+
+<%=user_signed_in?%>
+##
+
+<p><%#= link_to '全部一気に編集する(edit_all)', edit_all_results_path %>
+</p>
+
+##全部の一覧<br>
+<%= render 'showresults' %>
+
+<%= link_to 'OK一覧', show_ok_results_path %>
+<%= link_to 'NG一覧', show_ng_results_path %>

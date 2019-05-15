@@ -1,0 +1,26 @@
+##
+<%=current_user.email%>
+
+<%=user_signed_in?%>
+##
+
+<p><%= link_to '全部一気に編集する(edit_all)', edit_all_qas_path %>
+</p>
+
+
+<% @qas.each do |qa| %>
+<%= qa.question %>, <%= qa.answer %>
+
+<audio src=<%= qa.soundfile %> controls>
+<p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
+</audio>
+
+<%= link_to 'これを編集する(edit)', edit_qa_path(qa) %>
+
+<%= link_to '詳細ページ(show)', qa_path(qa) %>
+
+<hr>
+<% end  %>
+<hr>
+##
+<%= link_to '結果一覧ページ(result/index)', results_path %>

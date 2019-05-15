@@ -1,0 +1,10 @@
+<h1>id: <%= @qa.id %> のメッセージ詳細ページ</h1>
+
+<p>問題: <%= @qa.question %></p>
+<p>解答: <%= @qa.answer %></p>
+<p>音声: <%= @qa.soundfile %></p>
+
+
+<%= link_to '一覧に戻る', qas_path %>
+<%= link_to 'このメッセージを編集する', edit_qa_path(@qa) %>
+<%= link_to 'このメッセージを削除する', @qa, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>

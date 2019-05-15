@@ -1,0 +1,29 @@
+
+<% @results.each do |result| %>
+<%= result.user_id %>, <%= result.qa_id %>, <%= result.result %>, <%= result.created_at %>, <%= result.updated_at %>
+
+
+
+<%= link_to 'これを編集する(edit)', edit_result_path(result) %>
+
+<%= link_to '詳細ページ(show)', result_path(result) %>
+
+機能追加：OKにする
+
+<%= form_with(url: ok_results_path, local: true) do |f| %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <%= hidden_field_tag :qa_id, result.qa_id %>
+  <%= f.submit 'OKにする', class: 'btn btn-danger btn-block' %>
+  <% end  %>
+
+  <%= form_with(url: ng_results_path, local: true) do |f| %>
+    <%= hidden_field_tag :user_id, current_user.id %>
+    <%= hidden_field_tag :qa_id, result.qa_id %>
+    <%= f.submit 'NGにする', class: 'btn btn-danger btn-block' %>
+    <% end  %>
+
+
+NGにする
+お気に入り登録する
+<hr>
+<% end  %>

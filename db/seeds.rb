@@ -1,7 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Qa.create(:question =>'こんにちは', :answer =>'a', :soundfile =>'https://s3.us-east-2.amazonaws.com/vocabrary-app/watashi-teijide-kaerimasu_1_1.mp3')
+Qa.create(:question =>'い', :answer =>'i', :soundfile =>'https://s3.us-east-2.amazonaws.com/vocabrary-app/watashi-teijide-kaerimasu_1_2.mp3')
+Qa.create(:question =>'う', :answer =>'u', :soundfile =>'https://s3.us-east-2.amazonaws.com/vocabrary-app/watashi-teijide-kaerimasu_1_3.mp3')
+Qa.create(:question =>'え', :answer =>'e', :soundfile =>'https://s3.us-east-2.amazonaws.com/vocabrary-app/watashi-teijide-kaerimasu_1_4.mp3')
+Qa.create(:question =>'お', :answer =>'o', :soundfile =>'https://s3.us-east-2.amazonaws.com/vocabrary-app/watashi-teijide-kaerimasu_1_5.mp3')
