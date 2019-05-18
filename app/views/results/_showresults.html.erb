@@ -8,22 +8,20 @@
 
 <%= link_to '詳細ページ(show)', result_path(result) %>
 
-機能追加：OKにする
-
 <%= form_with(url: ok_results_path, local: true) do |f| %>
   <%= hidden_field_tag :user_id, current_user.id %>
   <%= hidden_field_tag :qa_id, result.qa_id %>
-  <%= f.submit 'OKにする', class: 'btn btn-danger btn-block' %>
+  <%= f.submit 'OKにする', class: 'btn btn-primary' %>
   <% end  %>
 
   <%= form_with(url: ng_results_path, local: true) do |f| %>
     <%= hidden_field_tag :user_id, current_user.id %>
     <%= hidden_field_tag :qa_id, result.qa_id %>
-    <%= f.submit 'NGにする', class: 'btn btn-danger btn-block' %>
+    <%= f.submit 'NGにする', class: 'btn btn-danger' %>
     <% end  %>
 
+    <%#= render 'like_form'  %>
 
-NGにする
-お気に入り登録する
+
 <hr>
 <% end  %>

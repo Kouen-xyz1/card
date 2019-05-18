@@ -2,25 +2,96 @@
 <%=current_user.email%>
 
 <%=user_signed_in?%>
-##
 
 <p><%= link_to '全部一気に編集する(edit_all)', edit_all_qas_path %>
 </p>
-
+<hr>
+QA一覧をID順で
 
 <% @qas.each do |qa| %>
-<%= qa.question %>, <%= qa.answer %>
+<%= qa.question %>, <%= qa.answer %>, <%= qa.result %>
 
 <audio src=<%= qa.soundfile %> controls>
 <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
 </audio>
 
-<%= link_to 'これを編集する(edit)', edit_qa_path(qa) %>
+<%#= link_to 'これを編集する(edit)', edit_qa_path(qa.*) %>
 
-<%= link_to '詳細ページ(show)', qa_path(qa) %>
+<%#= link_to '詳細ページ(show)', qa_path(qa) %>
+
+<%= form_with(url: ok_qas_path, local: true) do |f| %>
+  <%= hidden_field_tag :user_id, current_user.id %>
+  <%= hidden_field_tag :qa_id, qa.id %>
+  <%= f.submit 'OKにする', class: 'btn btn-primary' %>
+  <% end  %>
+
+  <%= form_with(url: ng_qas_path, local: true) do |f| %>
+    <%= hidden_field_tag :user_id, current_user.id %>
+    <%= hidden_field_tag :qa_id, qa.id %>
+    <%= f.submit 'NGにする', class: 'btn btn-danger' %>
+    <% end  %>
 
 <hr>
 <% end  %>
 <hr>
 ##
+<%= link_to '自分のOK一覧を見に行く', results_path %>
+<%= link_to '自分のNG一覧を見に行く', results_path %>
+
+↓これまたあとで
 <%= link_to '結果一覧ページ(result/index)', results_path %>
+<input type="button" id="btn1" value="ボタン">
+
+
+
+<script>
+$(function(){
+  $('#btn1').click(function(){
+
+    //Ajaxに渡すデータ
+    var dt = {a:1, b:2};  //このサンプルでは関係ありません。
+
+    //Ajax通信を行う
+    $.ajax({
+        url:"qas/ajax_test",
+        type:"POST",
+        dataType:"json",
+        data:{'user_ida':'abe',
+              'result_a':'aaa'
+
+                    }
+    })
+    .done((data) => {
+      //成功した場合の処理
+
+      console.log('done');
+      $("#hoge").css("color","red");
+      console.log($("#hoge").text());
+      $("#first").css("color","red");
+      $("#first").text("aaa");
+      console.log(data)
+      console.log(data[0]['question'])
+
+      console.log(data['id'])
+      console.log(data['question'])
+      console.log(data['soundfile'])
+
+
+$('#first > span').css('color', 'red'); // firstのspan
+       //var text = $("#ajax_test").text();
+       //console.log(text);
+    })
+    .fail((data) => {
+      //失敗した場合の処理
+      console.log('fail');  //レスポンス文字列を表示
+
+
+    })
+    .always((data) => {
+      //成功・失敗どちらでも行う処理
+      console.log('alwaiy');
+    });
+  });
+
+});
+</script>

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_15_013520) do
+ActiveRecord::Schema.define(version: 2019_05_15_225425) do
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "qa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["qa_id"], name: "index_favorites_on_qa_id"
+    t.index ["user_id", "qa_id"], name: "index_favorites_on_user_id_and_qa_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
 
   create_table "qas", force: :cascade do |t|
     t.string "question"
@@ -21,12 +31,13 @@ ActiveRecord::Schema.define(version: 2019_05_15_013520) do
   end
 
   create_table "results", force: :cascade do |t|
-    t.integer "qa_id"
     t.integer "user_id"
+    t.integer "qa_id"
     t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["qa_id"], name: "index_results_on_qa_id"
+    t.index ["user_id", "qa_id", "result"], name: "index_results_on_user_id_and_qa_id_and_result", unique: true
     t.index ["user_id"], name: "index_results_on_user_id"
   end
 

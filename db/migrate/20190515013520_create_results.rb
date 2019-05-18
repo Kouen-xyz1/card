@@ -7,6 +7,7 @@ class CreateResults < ActiveRecord::Migration[5.2]
       t.string :result
 
       t.timestamps
+      t.index [:user_id, :qa_id, :result], unique: true
     end
   end
 end

@@ -16,6 +16,8 @@ class ResultsController < ApplicationController
   end
 
   def ok
+    #binding.pry
+    #request.path
     result = Result.find_or_create_by(user_id: params[:user_id], qa_id: params[:qa_id])
     result.result = 'ok'
     result.save
@@ -28,4 +30,6 @@ class ResultsController < ApplicationController
     result.save
     redirect_to results_path
   end
+
+
 end

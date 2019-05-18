@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :qas do
     collection do
       get 'edit_all'
+      post 'ajax_test'
+      get 'show_ok'
+      get 'show_ng'
+      post 'ok'
+      post 'ng'
     end
   end
 
@@ -19,6 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :favorites, only: [:create, :destroy]
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

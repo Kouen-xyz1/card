@@ -6,7 +6,9 @@ ruby '2.5.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', group: :development
+# 本番ではpostgressを使用する
+gem 'pg', group: :production
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -74,3 +76,9 @@ end
 
 gem 'jquery-rails'
 gem 'bootstrap-sass'
+
+# https://qiita.com/fursich/items/c2ab11acad918000a8ea
+gem 'rails-ujs'
+
+#https://www.uosansatox.biz/entry/2018/02/14/152734
+gem 'activerecord-import'
