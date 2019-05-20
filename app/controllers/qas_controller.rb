@@ -1,6 +1,5 @@
 class QasController < ApplicationController
   def index
-  #  @qas = Qa.all
      @qas = Qa.left_outer_joins(:results).select("qas.*, results.*")
   end
 
@@ -36,37 +35,10 @@ class QasController < ApplicationController
     @qas = Qa.all
   end
 
-  def ajax_test
-  #s  binding.pry
-    a = params[:user_id]
-    #@qa = Qa.find(params[:id])
-    @qa = Qa.all
-    render json: @qa
-    end
 
   def qa_params
     params.require(:qa).permit(:question, :answer, :soundfile)
   end
-
-
-
-    #binding.pry
-    #request.path
-    def ok
-      #binding.pry
-      #request.path
-      result = Result.find_or_create_by(user_id: params[:user_id], qa_id: params[:qa_id])
-      result.result = 'ok'
-      result.save
-      redirect_to qas_path
-    end
-
-    def ng
-      result = Result.find_or_create_by(user_id: params[:user_id], qa_id: params[:qa_id])
-      result.result = 'ng'
-      result.save
-      redirect_to qas_path
-    end
 
 
 

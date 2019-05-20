@@ -1,0 +1,151 @@
+<%= link_to 'QA一覧', qas_path %>
+
+<%= link_to 'OK一覧', show_ok_results_path %>
+<%= link_to 'NG一覧', show_ng_results_path %>
+
+
+<input type="button" id="before" value="前の問題へ">
+<input type="button" id="next" value="次の問題へ">
+
+<div id ='question'>
+  <%#= qas.question %>
+</div>
+
+<div id ='answer'>
+  <%= @qas.find(1).answer %>
+</div>
+
+<audio id = 'soundfile' preload="auto" src=<%= @qas.find(1).soundfile %> controls>
+  <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
+</audio>
+
+<div id = 'ok'>
+  <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-5x"></i></button>
+</div>
+
+<div id = 'ng'>
+  <button class="btn btn-primary col-xs-6"><i class="fas fa-times fa-5x"></i></button>
+</div>
+
+current_user_id<input id = 'current_user_id' value = <%=current_user.id%>></input><br>
+
+qa_id <input id = 'qa_id' value = <%=@qas.find(1).id%>></input><br>
+qas <input id = 'qas' value = <%=@qas.to_json%>></input>
+<br>
+現在何問目<input id = 'qa_num' value = 1></input>
+
+<script>
+var cnt = 0;
+qas = JSON.parse($("#qas").val())
+qas_length = qas.length
+
+$("#qa_id").val(qas[0]["id"])
+$("#question").text(qas[0]["question"])
+$("#answer").text(qas[0]["answer"])
+$("#soundfile").attr('src',qas[0]["soundfile"])
+
+
+$(function(){
+  $('#ok').click(function(){
+    $.ajax({
+        url:"results/ok",
+        type:"POST",
+        dataType:"json",
+        data:{'user_id':$("#current_user_id").val(),
+              'qa_id': $("#qa_id").val()
+                    }
+    })
+    .done((data) => {
+      console.log(data)
+      console.log('ok_doneです');
+
+      cnt = cnt + 1
+      current_qa_num = $("#qa_num").val()|0
+
+      if (current_qa_num == qas_length) {
+        location.href="results";
+        console.log('最後の問題')
+      } else {
+        console.log('最後以外')
+
+        $("#qa_id").val(qas[cnt]["id"])
+        $("#qa_num").val(current_qa_num + 1)
+        $("#question").text(qas[cnt]["question"])
+        $("#answer").text(qas[cnt]["answer"])
+        $("#soundfile").attr('src',qas[cnt]["soundfile"])
+    }
+
+    })
+    .fail((data) => {
+      console.log('ok_failしました');
+    })
+    .always((data) => {
+      console.log('ok_alwaysです');
+    });
+  });
+});
+
+$('#ng').click(function(){
+  $.ajax({
+      url:"results/ng",
+      type:"POST",
+      dataType:"json",
+      data:{'user_id':$("#current_user_id").val(),
+            'qa_id': $("#qa_id").val()
+                  }
+  })
+  .done((data) => {
+    console.log(data)
+    console.log('ng_doneです');
+
+    cnt = cnt + 1
+    current_qa_num = $("#qa_num").val()|0
+
+    if (current_qa_num == qas_length) {
+      location.href="results";
+      console.log('最後の問題')
+    } else {
+      console.log('最後以外')
+      $("#qa_id").val(qas[cnt]["id"])
+      $("#qa_num").val(current_qa_num + 1)
+      $("#question").text(qas[cnt]["question"])
+      $("#answer").text(qas[cnt]["answer"])
+      $("#soundfile").attr('src',qas[cnt]["soundfile"])
+  }
+
+  })
+  .fail((data) => {
+    console.log('ng_failしました');
+  })
+  .always((data) => {
+    console.log('ng_alwaysです');
+  });
+});
+
+$(function(){
+  $('#next').click(function(){
+      cnt = cnt + 1
+      current_qa_num = $("#qa_num").val()|0
+
+      $("#qa_id").val(qas[cnt]["id"])
+      $("#qa_num").val(current_qa_num + 1)
+      $("#question").text(qas[cnt]["question"])
+      $("#answer").text(qas[cnt]["answer"])
+      $("#soundfile").attr('src',qas[cnt]["soundfile"])
+  });
+});
+
+$(function(){
+  $('#before').click(function(){
+      cnt = cnt - 1
+      current_qa_num = $("#qa_num").val()|0
+
+      $("#qa_id").val(qas[cnt]["id"])
+      $("#qa_num").val(current_qa_num - 1)
+      $("#question").text(qas[cnt]["question"])
+      $("#answer").text(qas[cnt]["answer"])
+      $("#soundfile").attr('src',qas[cnt]["soundfile"])
+  });
+});
+
+</script>

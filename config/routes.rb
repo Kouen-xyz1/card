@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :results do
     collection do
       get 'edit_all'
+      get 'show_all'
       get 'show_ok'
       get 'show_ng'
       post 'ok'

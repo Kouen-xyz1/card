@@ -12,7 +12,7 @@
 
   <body>
 
-    <header>
+
         <nav>
             <% if user_signed_in? %>
             <strong><%= link_to current_user.email, pages_show_path %></strong>
@@ -23,13 +23,14 @@
             <%= link_to 'ログイン', new_user_session_path %>
             <% end %>
         </nav>
-    </header>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-<div class="container">
-    <%= yield %>
-  </div>
 
+    <div class="container">
+      <%= yield %>
+      <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+
+    </div>
   </body>
 </html>

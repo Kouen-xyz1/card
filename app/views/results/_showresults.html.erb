@@ -2,8 +2,6 @@
 <% @results.each do |result| %>
 <%= result.user_id %>, <%= result.qa_id %>, <%= result.result %>, <%= result.created_at %>, <%= result.updated_at %>
 
-
-
 <%= link_to 'これを編集する(edit)', edit_result_path(result) %>
 
 <%= link_to '詳細ページ(show)', result_path(result) %>
@@ -18,7 +16,7 @@
     <%= hidden_field_tag :user_id, current_user.id %>
     <%= hidden_field_tag :qa_id, result.qa_id %>
     <%= f.submit 'NGにする', class: 'btn btn-danger' %>
-    <% end  %>
+<% end  %>
 
     <%#= render 'like_form'  %>
 
