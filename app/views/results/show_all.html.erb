@@ -15,24 +15,30 @@
   <%= @qas.find(1).answer %>
 </div>
 
-<audio id = 'soundfile' preload="auto" src=<%= @qas.find(1).soundfile %> controls>
-  <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
-</audio>
-
-<div id = 'ok'>
-  <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-5x"></i></button>
-</div>
-
-<div id = 'ng'>
-  <button class="btn btn-primary col-xs-6"><i class="fas fa-times fa-5x"></i></button>
-</div>
-
+<div>
 current_user_id<input id = 'current_user_id' value = <%=current_user.id%>></input><br>
 
 qa_id <input id = 'qa_id' value = <%=@qas.find(1).id%>></input><br>
 qas <input id = 'qas' value = <%=@qas.to_json%>></input>
 <br>
 現在何問目<input id = 'qa_num' value = 1></input>
+</div>
+
+<audio id = 'soundfile' preload="auto" src=<%= @qas.find(1).soundfile %> controls>
+  <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
+</audio>
+
+<footer>
+  <div id = 'ok'>
+    <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-5x"></i></button>
+  </div>
+  <div id = 'ng'>
+    <button class="btn btn-primary col-xs-6"><i class="fas fa-times fa-5x"></i></button>
+  </div>
+</footer>
+
+
+
 
 <script>
 var cnt = 0;
