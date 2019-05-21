@@ -36,8 +36,11 @@ qas <input id = 'qas' value = <%=@qas.to_json%>></input>
 
 <script>
 var cnt = 0;
-qas = JSON.parse($("#qas").val())
-qas_length = qas.length
+var qas = $("#qas").val()
+qas = JSON.parse(qas);
+console.log(qas)
+var qas_length = qas.length
+console.log(qas)
 
 $("#qa_id").val(qas[0]["id"])
 $("#question").text(qas[0]["question"])
@@ -48,7 +51,7 @@ $("#soundfile").attr('src',qas[0]["soundfile"])
 $(function(){
   $('#ok').click(function(){
     $.ajax({
-        url:"results/ok",
+        url:"ok",
         type:"POST",
         dataType:"json",
         data:{'user_id':$("#current_user_id").val(),
@@ -63,7 +66,7 @@ $(function(){
       current_qa_num = $("#qa_num").val()|0
 
       if (current_qa_num == qas_length) {
-        location.href="results";
+        location.href="/results";
         console.log('最後の問題')
       } else {
         console.log('最後以外')
@@ -87,7 +90,7 @@ $(function(){
 
 $('#ng').click(function(){
   $.ajax({
-      url:"results/ng",
+      url:"ng",
       type:"POST",
       dataType:"json",
       data:{'user_id':$("#current_user_id").val(),
@@ -102,7 +105,7 @@ $('#ng').click(function(){
     current_qa_num = $("#qa_num").val()|0
 
     if (current_qa_num == qas_length) {
-      location.href="results";
+      location.href="/results";
       console.log('最後の問題')
     } else {
       console.log('最後以外')
