@@ -5,5 +5,5 @@ class Qa < ApplicationRecord
   has_many :results #これ正しいのかな？
   has_many :favorites
   has_many :users, through: :favorites
-
+  belongs_to :episode
 end

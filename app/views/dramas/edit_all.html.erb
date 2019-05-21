@@ -1,0 +1,18 @@
+
+<% @dramas.each do |drama| %>
+  <h1>id: <%= drama.id %> のメッセージ編集ページ</h1>
+
+  <%= form_with(model: drama, local: true) do |f| %>
+    <%= f.label :title_japanese, '日本語タイトル' %>
+    <%= f.text_field :title_japanese %>
+
+    <%= f.label :title_english, '英語タイトル' %>
+    <%= f.text_field :title_english %>
+
+    <%= f.submit '編集' %>
+  <% end %>
+<% end %>
+
+
+
+<%= link_to 'admin top', admins_path %>

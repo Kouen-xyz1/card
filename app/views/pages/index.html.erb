@@ -1,5 +1,18 @@
+
+<% if user_signed_in?%>
 <h1>Pages#index</h1>
 <p>Find me in app/views/pages/index.html.erb</p>
 
-<%= link_to "QA一覧を見に行く", qas_path %>
-<%= link_to "問題を解く", results_path %>
+<ul>
+  <li><%= link_to "ドラマ一覧を見る", dramas_path %></li>
+  <li><%= link_to "学習する", results_path %></li>
+</ul>
+<ul>
+  <li><%= link_to "Adminページへ", admins_path %></li>
+</ul>
+<%= link_to 'プロフィール変更', edit_user_registration_path %>
+<%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+<% else %>
+<%= link_to 'サインアップ', new_user_registration_path %>
+<%= link_to 'ログイン', new_user_session_path %>
+<% end %>

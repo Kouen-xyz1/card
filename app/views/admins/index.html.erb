@@ -1,0 +1,56 @@
+<%= link_to 'QAアップロード', new_qa_path %>
+<hr>
+<%= link_to 'ルートに戻る', root_path %>
+
+<h1>ドラマ新規作成</h1>
+
+<%= form_with(url: dramas_path, method: :post, local: true) do |f| %>
+  <%= f.label :title_japanese, '日本語ドラマ名' %>
+  <%= f.text_field :title_japanese %>
+
+  <%= f.label :title_english, '英語ドラマ名' %>
+  <%= f.text_field :title_english %>
+
+  <%= f.submit '新規作成' %>
+<% end %>
+
+<h1>ドラマ一覧</h1>
+<% @dramas.each do |drama| %>
+  <%=drama.id %>
+  <%=drama.title_japanese %>
+  <%=drama.title_english %>  <br>
+<% end %>
+<%= link_to 'ドラマを一気に編集する', edit_all_dramas_path %>
+
+<h1>エピソード新規作成</h1>
+
+<%= form_with(url: episodes_path, method: :post, local: true) do |f| %>
+  <%= f.label :drama_id, 'ドラマID' %>
+  <%= f.text_field :drama_id %>
+
+  <%= f.label :episode, '第何話を追加するか' %>
+  <%= f.text_field :episode %>
+
+  <%= f.submit '新規作成' %>
+<% end %>
+
+<h1>エピソード一覧</h1>
+<% @episodes.each do |episode| %>
+  <%=episode.id %>
+  <%=episode.drama.title_japanese %>
+  <%=episode.episode %>話
+  <br>
+<% end %>
+
+<hr>
+
+<h1>Qa一覧</h1>
+<% @qas.each do |qa| %>
+  <%=qa.id %>
+  <%=qa.question %>
+  <%=qa.answer %>
+  <br>
+<% end %>
+
+
+<%= link_to 'QAを一気に編集する', edit_all_qas_path %>

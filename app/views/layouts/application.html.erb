@@ -7,30 +7,15 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+</head>
 
-  </head>
-
-  <body>
-
-
-        <nav>
-            <% if user_signed_in? %>
-            <strong><%= link_to current_user.email, pages_show_path %></strong>
-            <%= link_to 'プロフィール変更', edit_user_registration_path %>
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-        <% else %>
-            <%= link_to 'サインアップ', new_user_registration_path %>
-            <%= link_to 'ログイン', new_user_session_path %>
-            <% end %>
-        </nav>
-
+<body>
+  <div class="container">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-
-    <div class="container">
-      <%= yield %>
-      <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
-
-    </div>
+    <%#= render 'navbar' %>
+    <%= yield %>
+  </div>
   </body>
 </html>

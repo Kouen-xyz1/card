@@ -1,5 +1,6 @@
 class QasController < ApplicationController
   def index
+#     qas = Qa.where(params[:episode_id]
      @qas = Qa.left_outer_joins(:results).select("qas.*, results.*")
   end
 
@@ -8,7 +9,7 @@ class QasController < ApplicationController
 
   def create
     registered_count = import_qas
-    redirect_to qas_path, notice: "#{registered_count}件登録しました"
+    redirect_to admins_path, notice: "#{registered_count}件登録しました"
   end
 
   def show
@@ -50,7 +51,7 @@ class QasController < ApplicationController
       qas = []
       # windowsで作られたファイルに対応するので、encoding: "SJIS"を付けている
       CSV.foreach(params[:qas_file].path, headers: true) do |row|
-        qas << ::Qa.new({ question: row["question"], answer: row["answer"], soundfile: row["soundfile"]})
+        qas << ::Qa.new({ episode_id: row["episode_id"], order_in_episode: row["order_in_episode"], question: row["question"], answer: row["answer"], soundfile: row["soundfile"]})
       end
       # importメソッドでバルクインサートできる
       ::Qa.import(qas)

@@ -1,0 +1,15 @@
+<h1>ドラマ一覧</h1>
+<ul>
+<% @dramas.each do |drama| %>
+<li>  <%=drama.id %> </li>
+<li>  <%=drama.title_japanese %></li>
+<li>  <%=drama.title_english %></li>
+
+<% drama.episodes.each do |episode| %>
+
+<%= link_to '一覧を見に行く', qas_path(episode_id: episode.id) %>
+
+<% end %>
+
+<% end %>
+</ul>

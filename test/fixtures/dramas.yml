@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title_japanese: MyString
+  title_english: MyString
+  year: 1
+  month: 1
+  drama_url: MyString
+
+two:
+  title_japanese: MyString
+  title_english: MyString
+  year: 1
+  month: 1
+  drama_url: MyString

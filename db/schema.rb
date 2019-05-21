@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_15_225425) do
+ActiveRecord::Schema.define(version: 2019_05_20_133056) do
+
+  create_table "dramas", force: :cascade do |t|
+    t.string "title_japanese"
+    t.string "title_english"
+    t.integer "year"
+    t.integer "month"
+    t.string "drama_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.integer "drama_id"
+    t.string "episode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drama_id", "episode"], name: "index_episodes_on_drama_id_and_episode", unique: true
+    t.index ["drama_id"], name: "index_episodes_on_drama_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
@@ -23,11 +42,14 @@ ActiveRecord::Schema.define(version: 2019_05_15_225425) do
   end
 
   create_table "qas", force: :cascade do |t|
+    t.integer "episode_id"
+    t.integer "order_in_episode"
     t.string "question"
     t.string "answer"
     t.string "soundfile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["episode_id"], name: "index_qas_on_episode_id"
   end
 
   create_table "results", force: :cascade do |t|
