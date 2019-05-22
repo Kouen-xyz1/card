@@ -50,9 +50,10 @@
 var cnt = 0;
 var qas = $("#qas").text()
 qas = JSON.parse(qas);
-console.log(qas)
+
 var qa_length = $("#qa_length").val()
-console.log(qas)
+var user_id = $("#current_user_id").val()
+var current_qa_num
 
 $("#qa_id").val(qas[0]["id"])
 $("#question").text(qas[0]["question"])
@@ -61,81 +62,61 @@ $("#soundfile").attr('src',qas[0]["soundfile"])
 
 
 $(function(){
-  $('#ok').click(function(){
-    $.ajax({
-        url:"ok",
-        type:"POST",
-        dataType:"json",
-        data:{'user_id':$("#current_user_id").val(),
-              'qa_id': $("#qa_id").val()
-                    }
-    })
-    .done((data) => {
-      console.log(data)
-      console.log('ok_doneです');
-
-      cnt = cnt + 1
-      var current_qa_num = $("#qa_num").val()|0
-
-      if (current_qa_num == qa_length) {
-        location.href="/results";
-        console.log('最後の問題')
-      } else {
-        console.log('最後以外')
-
-        $("#qa_id").val(qas[cnt]["id"])
-        $("#qa_num").val(current_qa_num + 1)
-        $("#question").text(qas[cnt]["question"])
-        $("#answer").text(qas[cnt]["answer"])
-        $("#soundfile").attr('src',qas[cnt]["soundfile"])
-    }
-
-    })
-    .fail((data) => {
-      console.log('ok_failしました');
-    })
-    .always((data) => {
-      console.log('ok_alwaysです');
+  $('#ok').on('click',function(){
+    result_flow('ok')
     });
+});
+
+$(function(){
+  $('#ng').on('click',function(){
+    result_flow('ng')
   });
 });
 
-$('#ng').click(function(){
+function result_flow(result){
+  current_qa_num = $("#qa_num").val()|0
+  qa_id = $("#qa_id").val()
+
+  if (current_qa_num == qa_length) {
+    console.log('最後の問題')
+    result_ajax(result, qa_id)
+    location.href="/results";
+  } else {
+    console.log('続きあり')
+  result_qanum(current_qa_num)
+  result_ajax(result, qa_id)
+    }
+}
+
+function result_qanum(current_qa_num){
+  cnt = cnt + 1
+
+  $("#qa_id").val(qas[cnt]["id"])
+
+  $("#qa_num").val(current_qa_num + 1)
+  $("#question").text(qas[cnt]["question"])
+  $("#answer").text(qas[cnt]["answer"])
+  $("#soundfile").attr('src',qas[cnt]["soundfile"])
+};
+
+function result_ajax(result, qa_id){
   $.ajax({
-      url:"ng",
+      url:result,
       type:"POST",
       dataType:"json",
-      data:{'user_id':$("#current_user_id").val(),
-            'qa_id': $("#qa_id").val()
-                  }
+      data:{'user_id': user_id,
+            'qa_id': qa_id }
   })
   .done((data) => {
-    console.log(data)
-    console.log('ng_doneです');
-
-    cnt = cnt + 1
-    current_qa_num = $("#qa_num").val()|0
-
-    if (current_qa_num == qa_length) {
-      location.href="/results";
-      console.log('最後の問題')
-    } else {
-      console.log('最後以外')
-      $("#qa_id").val(qas[cnt]["id"])
-      $("#qa_num").val(current_qa_num + 1)
-      $("#question").text(qas[cnt]["question"])
-      $("#answer").text(qas[cnt]["answer"])
-      $("#soundfile").attr('src',qas[cnt]["soundfile"])
-  }
-
+    console.log(result, 'doneです');
   })
   .fail((data) => {
-    console.log('ng_failしました');
+    console.log(result, 'failしました');
   })
   .always((data) => {
-    console.log('ng_alwaysです');
+    console.log(result, 'alwaysです');
   });
-});
+}
 
 $(function(){
   $('#next').click(function(){
