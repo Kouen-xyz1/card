@@ -8,23 +8,29 @@
 <input type="button" id="next" value="次の問題へ">
 
 <div id ='question'>
-  <%#= qas.question %>
+  <%= @qa_question %>
 </div>
 
 <div id ='answer'>
-  <%= @qas.find(1).answer %>
+  <%= @qa_answer %>
 </div>
 
-<div>
-current_user_id<input id = 'current_user_id' value = <%=current_user.id%>></input><br>
-
-qa_id <input id = 'qa_id' value = <%=@qas.find(1).id%>></input><br>
-qas <input id = 'qas' value = <%=@qas.to_json%>></input>
-<br>
-現在何問目<input id = 'qa_num' value = 1></input>
+<div id = 'internal_information'>
+  current_user_id
+    <input id = 'current_user_id' value = <%=current_user.id%>></input><br>
+  qa_id
+    <input id = 'qa_id' value = <%=@qa_first_id%>></input><br>
+  episode_id
+    <input id = 'episode_id' value = <%=@qas.first.episode_id%>></input><br>
+  qas
+    <div id = 'qas'> <%=@qas.to_json%></div><br>
+  qa_length
+    <input id = 'qa_length' value = <%=@qa_length%>></input><br>
+  現在何問目
+    <input id = 'qa_num' value = 1>/<%=@qa_length%></input>
 </div>
 
-<audio id = 'soundfile' preload="auto" src=<%= @qas.find(1).soundfile %> controls>
+<audio id = 'soundfile' preload="auto" src=<%= @qas.first.soundfile %> controls>
   <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
 </audio>
 
@@ -42,10 +48,10 @@ qas <input id = 'qas' value = <%=@qas.to_json%>></input>
 
 <script>
 var cnt = 0;
-var qas = $("#qas").val()
+var qas = $("#qas").text()
 qas = JSON.parse(qas);
 console.log(qas)
-var qas_length = qas.length
+var qa_length = $("#qa_length").val()
 console.log(qas)
 
 $("#qa_id").val(qas[0]["id"])
@@ -69,9 +75,9 @@ $(function(){
       console.log('ok_doneです');
 
       cnt = cnt + 1
-      current_qa_num = $("#qa_num").val()|0
+      var current_qa_num = $("#qa_num").val()|0
 
-      if (current_qa_num == qas_length) {
+      if (current_qa_num == qa_length) {
         location.href="/results";
         console.log('最後の問題')
       } else {
@@ -110,7 +116,7 @@ $('#ng').click(function(){
     cnt = cnt + 1
     current_qa_num = $("#qa_num").val()|0
 
-    if (current_qa_num == qas_length) {
+    if (current_qa_num == qa_length) {
       location.href="/results";
       console.log('最後の問題')
     } else {

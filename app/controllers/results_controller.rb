@@ -1,7 +1,9 @@
 class ResultsController < ApplicationController
   def index
-    @qas = Qa.left_outer_joins(:results).select("qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
- #binding.pry
+    @dramas = Drama.all
+    @episodes = Episode.all
+    #@qas = Qa.left_outer_joins(:results).select("qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
+
   end
 
   def show
@@ -9,15 +11,31 @@ class ResultsController < ApplicationController
   end
 
   def show_all
-    @qas = Qa.left_outer_joins(:results).select("qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
+    @qas = Qa.left_outer_joins(:results).select("qas.episode_id, qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
+    @qas = @qas.where(episode_id:params[:episode_id])
+    @qa_question = @qas.first.question
+    @qa_answer = @qas.first.answer
+    @qa_first_id = @qas.first.id
+    @qa_length = @qas.length
   end
 
   def show_ng
-    @qas = Qa.left_outer_joins(:results).select("qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").where('result="ng"').order(:updated_at)
+    わからん
+    @qas = Qa.left_outer_joins(:results).select("qas.episode_id, qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
+    @qas = @qas.where(episode_id:params[:episode_id], result:'ng')
+    @qa_question = @qas.first.question
+    @qa_answer = @qas.first.answer
+    @qa_first_id = @qas.first.id
+    @qa_length = @qas.length
   end
 
   def show_ok
-    @qas = Qa.left_outer_joins(:results).select("qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").where('result="ok"').order(:updated_at)
+    @qas = Qa.left_outer_joins(:results).select("qas.episode_id, qas.id, qas.question, qas.answer, qas.soundfile, results.result, results.updated_at").order("results.updated_at")
+    @qas = @qas.where(episode_id:params[:episode_id])
+    @qa_question = @qas.first.question
+    @qa_answer = @qas.first.answer
+    @qa_first_id = @qas.first.id
+    @qa_length = @qas.length
   end
 
   def show_not_answered

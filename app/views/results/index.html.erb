@@ -1,3 +1,12 @@
-<%= link_to '全部', show_all_results_path %>
-<%= link_to 'OKのみ', show_ok_results_path %>
-<%= link_to 'NGのみ', show_ng_results_path %>
+<h1>ドラマ一覧</h1>
+  <% @dramas.each do |drama| %>
+    <h2>  <%=drama.id %>, <%=drama.title_japanese %>, <%=drama.title_english %> </h2>
+
+    <% drama.episodes.each do |episode| %>
+    <h3> <%=episode.episode %></h3>
+
+    <%= link_to '全部', show_all_results_path(episode_id: episode.id) %>
+    <%= link_to 'OKのみ', show_ok_results_path(episode_id: episode.id) %>
+    <%= link_to 'NGのみ', show_ng_results_path(episode_id: episode.id) %>
+    <% end %>
+  <% end %>
