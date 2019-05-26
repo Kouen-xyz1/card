@@ -1,13 +1,12 @@
-<div class = 'internal_information'>
+<div class = 'internal_information'  style = 'display:none'>
   <%= link_to 'QA一覧', qas_path %>
   <%= link_to 'OK一覧', show_ok_results_path %>
   <%= link_to 'NG一覧', show_ng_results_path %>
-
   <input type="button" id="before" value="前の問題へ">
   <input type="button" id="next" value="次の問題へ">
 </div>
 
-<div class = 'internal_information'>
+<div class = 'internal_information' style = 'display:none'>
   current_user_id
     <input id = 'current_user_id' value = <%=current_user.id%>></input><br>
   qa_id
@@ -17,19 +16,19 @@
   qas
     <div id = 'qas'> <%=@qas.to_json%></div><br>
   qa_length
-    <input id = 'qa_length' value = <%=@qa_length%>></input><br>
+    <input id = 'qa_length' value = <%=@qas.length%>></input><br>
   現在何問目
-    <input id = 'qa_num' value = 1>/<%=@qa_length%></input>
+    <input id = 'qa_num' value = 1>/<%=@qas.length%></input>
 </div>
 
 <div id ='question' class="well">
-<p>
-  <%= @qas.first.question %>
+  <p>
+    <%= @qas.first.question %>
   </p>
 </div>
 
 <div  class = "well">
-  <p id ='answer'>
+  <p id ='answer'  style = 'visibility:hidden'>
     <%= @qas.first.answer %>
   </p>
 </div>
@@ -42,7 +41,7 @@
   <button class="btn btn-primary col-xs-12">解答を表示する</button>
 </div>
 
-<div id = 'answer_button'>
+<div id = 'answer_button' style = 'display:none'>
   <div id = 'ok'>
     <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-1x"></i></button>
   </div>
@@ -52,24 +51,17 @@
 </div>
 
 
-
-
 <script>
-
-
-$("#answer").css("visibility", "hidden");
-
 $('#show_answer').on('click',function(){
-$("#show_answer").hide();
-$("#answer_button").show();
-$("#answer").css("visibility", "visible");
-  })
+  $("#show_answer").hide();
+  $("#answer_button").show();
+  $("#answer").css("visibility", "visible");
+})
 
 $('#answer_button').on('click',function(){
   $("#answer_button").hide();
   $("#show_answer").show();
   $("#answer").css("visibility", "hidden");
-
 });
 
 var cnt = 0;
@@ -85,17 +77,14 @@ $("#question").text(qas[0]["question"])
 $("#answer").text(qas[0]["answer"])
 $("#soundfile").attr('src',qas[0]["soundfile"])
 
-
 $('#ok').on('click',function(){
   result_flow('ok')
   });
-
-  $('#ng').on('click',function(){
-    result_flow('ng')
-  });
+$('#ng').on('click',function(){
+  result_flow('ng')
+});
 
 function result_flow(result){
-
   current_qa_num = $("#qa_num").val()|0
   qa_id = $("#qa_id").val()
 
@@ -112,9 +101,7 @@ function result_flow(result){
 
 function result_qanum(current_qa_num){
   cnt = cnt + 1
-
   $("#qa_id").val(qas[cnt]["id"])
-
   $("#qa_num").val(current_qa_num + 1)
   $("#question").text(qas[cnt]["question"])
   $("#answer").text(qas[cnt]["answer"])
@@ -134,6 +121,7 @@ function result_ajax(result, qa_id){
   })
   .fail((data) => {
     console.log(result, 'failしました');
+    alert('通信に失敗しました。リロードしてください。');
   })
   .always((data) => {
     console.log(result, 'alwaysです');
@@ -157,7 +145,6 @@ $(function(){
   $('#before').click(function(){
       cnt = cnt - 1
       current_qa_num = $("#qa_num").val()|0
-
       $("#qa_id").val(qas[cnt]["id"])
       $("#qa_num").val(current_qa_num - 1)
       $("#question").text(qas[cnt]["question"])
@@ -165,5 +152,4 @@ $(function(){
       $("#soundfile").attr('src',qas[cnt]["soundfile"])
   });
 });
-
 </script>

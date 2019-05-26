@@ -15,8 +15,6 @@ class ResultsController < ApplicationController
     @qas = @qas.where(episode_id:params[:episode_id])
     @qa_question = @qas.first.question
     @qa_answer = @qas.first.answer
-    @qa_first_id = @qas.first.id
-    @qa_length = @qas.length
   end
 
   def show_ng
