@@ -18,6 +18,17 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+ body {
+   //background-color: silver;
+ }
+
  #qas {
+   display:none;
+ }
+ .internal_information {
+   display:none;
+ }
+
+ #answer_button {
    display:none;
  }

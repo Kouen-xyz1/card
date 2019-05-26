@@ -1,25 +1,17 @@
-<%= link_to 'QA一覧', qas_path %>
+<div class = 'internal_information'>
+  <%= link_to 'QA一覧', qas_path %>
+  <%= link_to 'OK一覧', show_ok_results_path %>
+  <%= link_to 'NG一覧', show_ng_results_path %>
 
-<%= link_to 'OK一覧', show_ok_results_path %>
-<%= link_to 'NG一覧', show_ng_results_path %>
-
-
-<input type="button" id="before" value="前の問題へ">
-<input type="button" id="next" value="次の問題へ">
-
-<div id ='question'>
-  <%= @qa_question %>
+  <input type="button" id="before" value="前の問題へ">
+  <input type="button" id="next" value="次の問題へ">
 </div>
 
-<div id ='answer'>
-  <%= @qa_answer %>
-</div>
-
-<div id = 'internal_information'>
+<div class = 'internal_information'>
   current_user_id
     <input id = 'current_user_id' value = <%=current_user.id%>></input><br>
   qa_id
-    <input id = 'qa_id' value = <%=@qa_first_id%>></input><br>
+    <input id = 'qa_id' value = <%=@qas.first.id%>></input><br>
   episode_id
     <input id = 'episode_id' value = <%=@qas.first.episode_id%>></input><br>
   qas
@@ -30,23 +22,56 @@
     <input id = 'qa_num' value = 1>/<%=@qa_length%></input>
 </div>
 
+<div id ='question' class="well">
+<p>
+  <%= @qas.first.question %>
+  </p>
+</div>
+
+<div  class = "well">
+  <p id ='answer'>
+    <%= @qas.first.answer %>
+  </p>
+</div>
+
 <audio id = 'soundfile' preload="auto" src=<%= @qas.first.soundfile %> controls>
   <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
 </audio>
 
-<footer>
+<div id = 'show_answer'>
+  <button class="btn btn-primary col-xs-12">解答を表示する</button>
+</div>
+
+<div id = 'answer_button'>
   <div id = 'ok'>
-    <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-5x"></i></button>
+    <button class="btn btn-danger col-xs-6"><i class="far fa-circle fa-1x"></i></button>
   </div>
   <div id = 'ng'>
-    <button class="btn btn-primary col-xs-6"><i class="fas fa-times fa-5x"></i></button>
+    <button class="btn btn-primary col-xs-6"><i class="fas fa-times fa-1x"></i></button>
   </div>
-</footer>
+</div>
 
 
 
 
 <script>
+
+
+$("#answer").css("visibility", "hidden");
+
+$('#show_answer').on('click',function(){
+$("#show_answer").hide();
+$("#answer_button").show();
+$("#answer").css("visibility", "visible");
+  })
+
+$('#answer_button').on('click',function(){
+  $("#answer_button").hide();
+  $("#show_answer").show();
+  $("#answer").css("visibility", "hidden");
+
+});
+
 var cnt = 0;
 var qas = $("#qas").text()
 qas = JSON.parse(qas);
@@ -61,19 +86,16 @@ $("#answer").text(qas[0]["answer"])
 $("#soundfile").attr('src',qas[0]["soundfile"])
 
 
-$(function(){
-  $('#ok').on('click',function(){
-    result_flow('ok')
-    });
-});
+$('#ok').on('click',function(){
+  result_flow('ok')
+  });
 
-$(function(){
   $('#ng').on('click',function(){
     result_flow('ng')
   });
-});
 
 function result_flow(result){
+
   current_qa_num = $("#qa_num").val()|0
   qa_id = $("#qa_id").val()
 
