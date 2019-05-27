@@ -20,7 +20,7 @@
   <%=drama.title_japanese %>
   <%=drama.title_english %>  <br>
 <% end %>
-<%= link_to 'ドラマを一気に編集する', edit_all_dramas_path %>
+<%= link_to 'ドラマを一気に編集する', dramas_edit_all_admins_path %>
 
 <h1>エピソード新規作成</h1>
 
@@ -45,12 +45,11 @@
 <hr>
 
 <h1>Qa一覧</h1>
+<p><%= link_to 'QAを一気に編集する', qas_edit_all_admins_path %></p>
+
 <% @qas.each do |qa| %>
   <%=qa.id %>
   <%=qa.question %>
   <%=qa.answer %>
   <br>
 <% end %>
-
-
-<%= link_to 'QAを一気に編集する', edit_all_qas_path %>

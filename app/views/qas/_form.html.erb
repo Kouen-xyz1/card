@@ -1,16 +1,1 @@
-id: <%= qa.id %> のメッセージ編集
 
-<%= form_with(model: qa, local: true) do |f| %>
-  <%= f.label :question, '問題' %>
-  <%= f.text_field :question %>
-
-  <%= f.label :question, '解答' %>
-  <%= f.text_field :answer %>
-
-  <%= f.label :question, '音声ファイル' %>
-  <%= f.text_field :soundfile %>
-
-  <%= f.submit '更新(update)、リンク先はshow' %>
-<% end %>
-
-<%= link_to '一覧に戻る(index)', qas_path %>

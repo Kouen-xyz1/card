@@ -1,13 +1,17 @@
 class FavoritesController < ApplicationController
 
-  def create
-  @qa = Qa.find(params[:qa_id])
-  current_user.like(@qa)
+  def favorite_like
+    qa = Qa.find(params[:qa_id])
+    current_user.like(qa)
+    render json: { status: 'like_success'}
   end
 
-  def destroy
-    @qa = current_user.following_relationships.find(params[:id]).followed
-    current_user.unfollow(@user)
+  def favorite_unlike
+    qa = Qa.find(params[:qa_id])
+
+      current_user.unlike(qa)
+      render json: { status: 'unlike_success'}
+
   end
 
 end

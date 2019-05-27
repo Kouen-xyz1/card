@@ -1,0 +1,29 @@
+<% unless user_signed_in? %>
+ログインしてね
+<%else%>
+
+<%#= link_to '全部一気に編集する(edit_all)', edit_all_qas_path %>
+<%= link_to '戻る', :back %>
+
+<table class="table">
+  <% @qas.each do |qa| %>
+<tr>
+  <td>
+    <p><%= qa.question %></p>
+    <p><%= qa.answer %></p>
+
+    <audio preload="auto" src=<%= qa.soundfile %> controls>
+    <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
+    </audio>
+  </td>
+</tr>
+
+
+  <% end  %>
+</table>
+<%= paginate @qas %>
+
+  <%#= link_to '自分のOK一覧を見に行く', results_path %>
+  <%#= link_to '自分のNG一覧を見に行く', results_path %>
+  <%#= link_to '結果一覧ページ(result/index)', results_path %>
+  <% end %>

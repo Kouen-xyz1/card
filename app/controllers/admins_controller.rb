@@ -5,8 +5,16 @@ class AdminsController < ApplicationController
     @qas = Qa.all
   end
 
-  def create
+  def dramas_edit_all
+    @dramas = Drama.all
+  end
 
+  def qas_edit_all
+    @qas = Qa.all
+  end
+
+
+  def create
   end
 
   def new

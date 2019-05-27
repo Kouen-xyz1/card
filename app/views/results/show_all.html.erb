@@ -27,11 +27,17 @@
   </p>
 </div>
 
-<div  class = "well">
+<div class = "well">
   <p id ='answer'  style = 'visibility:hidden'>
     <%= @qas.first.answer %>
   </p>
 </div>
+
+<div id = 'favorite'>
+  <button id = 'like' class="btn  col-xs-2"><i class="far fa-star"></i></button>
+  <button id = 'unlike' class="btn  col-xs-2 "><i class="far fa-play"></i></button>
+</div>
+
 
 <audio id = 'soundfile' preload="auto" src=<%= @qas.first.soundfile %> controls>
   <p>音声を再生するには、audioタグをサポートしたブラウザが必要です。</p>
@@ -52,6 +58,42 @@
 
 
 <script>
+
+
+$('#like').on('click',function(){
+  console.log('star')
+  qa_id = $("#qa_id").val()
+  stat_ajax(qa_id, 'favorite_like')
+})
+
+$('#unlike').on('click',function(){
+  console.log('star')
+  qa_id = $("#qa_id").val()
+  stat_ajax(qa_id, 'favorite_unlike')
+})
+
+
+function stat_ajax(qa_id, favorite_state){
+  $.ajax({
+      url:'/favorites/' + favorite_state,
+      type:"POST",
+      dataType:"json",
+      data:{'user_id': user_id,
+            'qa_id': qa_id }
+  })
+  .done((data) => {
+    console.log(data, favorite_state, 'like doneです');
+  })
+  .fail((data) => {
+    console.log(data, favorite_state, 'unlike doneです');
+    alert('通信に失敗しました。リロードしてください。');
+  })
+  .always((data) => {
+    console.log(favorite_state, 'alwaysです');
+  });
+}
+
+
 $('#show_answer').on('click',function(){
   $("#show_answer").hide();
   $("#answer_button").show();

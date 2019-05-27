@@ -17,10 +17,6 @@ class DramasController < ApplicationController
     @drama = Drama.new
   end
 
-  def edit_all
-    @dramas = Drama.all
-  end
-
   def edit
   end
 

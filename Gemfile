@@ -82,3 +82,9 @@ gem 'rails-ujs'
 
 #https://www.uosansatox.biz/entry/2018/02/14/152734
 gem 'activerecord-import'
+
+#https://qiita.com/residenti/items/1ae1e5ceb59c0729c0b9
+gem 'kaminari', '~> 0.17.0'
+
+
+gem 'kaminari-bootstrap', '~> 3.0.1'

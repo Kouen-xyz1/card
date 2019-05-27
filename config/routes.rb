@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :qas do
     collection do
       get 'edit_all'
+      get 'show_all'
       get 'show_ok'
       get 'show_ng'
       post 'ok'
@@ -24,14 +25,25 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :favorites, only: [:create, :destroy]
-  resources :dramas do
+  resources :favorites do
+    collection do
+      post 'favorite_like'
+      post 'favorite_unlike'
+    end
+  end
+    resources :dramas do
     collection do
       get 'edit_all'
     end
   end
   resources :episodes
-  resources :admins
+
+  resources :admins do
+    collection do
+      get 'dramas_edit_all'
+      get 'qas_edit_all'
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

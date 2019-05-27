@@ -16,6 +16,12 @@ class QasController < ApplicationController
     @qa = Qa.find(params[:id])
   end
 
+  def show_all
+    @qas =  Qa.where(episode_id:params[:episode_id]).order(:order_in_episode).page(params[:page]).per(4)
+    drama_title = Episode.all.find(params[:episode_id]).drama.title_japanese
+    @title = drama_title + ' 第'+params[:episode_id]+'話'
+  end
+
   def edit
     @qa = Qa.find(params[:id])
   end
@@ -32,9 +38,10 @@ class QasController < ApplicationController
     end
   end
 
-  def edit_all
-    @qas = Qa.all
+  def destroy
+    #調べる
   end
+
 
 
   def qa_params

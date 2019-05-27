@@ -5,7 +5,7 @@
     <li>  <%=drama.title_japanese %></li>
     <li>  <%=drama.title_english %></li>
     <% drama.episodes.each do |episode| %>
-    <h3>  <%= link_to episode.episode , qas_path(episode_id: episode.id) %></h3>
+    <h3>  <%= link_to '第'+episode.episode+"話" , show_all_qas_path(episode_id: episode.id) %></h3>
     <% end %>
   <% end %>
 </ul>
