@@ -27,7 +27,7 @@ class User < ApplicationRecord
     user = User.find_by(email: auth.info.email)
 
     unless user
-      user = User.create(email:    auth.info.email,
+      user = User.create!(email:    auth.info.email,
                          provider: auth.provider,
                          uid:      auth.uid,
                          token:    auth.credentials.token)
