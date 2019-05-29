@@ -30,7 +30,8 @@ class User < ApplicationRecord
       user = User.create!(email:    auth.info.email,
                          provider: auth.provider,
                          uid:      auth.uid,
-                         token:    auth.credentials.token)
+                         token:    auth.credentials.token,
+                         password: SecureRandom.urlsafe_base64)
     end
     user
   end
