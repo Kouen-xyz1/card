@@ -261,10 +261,15 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :google_oauth2,
-    '666874787857-mquksq4op7lnjh1koecpf74p21ierarf.apps.googleusercontent.com',
-    'LCIlsWCtnewHmtO0PEOUMYNq',
+    'xxx.apps.googleusercontent.com',
+    'xxx',
     name: :google,
     scope: %w(email)
+    
+  config.omniauth :wechat,
+    'wxddec9124a28ff2c3',
+    '6bf69a88b8ae2aa521a4e0a1b20f4e8e',
+    :authorize_params => {:scope => "snsapi_base"}
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
