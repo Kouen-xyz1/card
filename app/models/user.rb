@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :trackable, :omniauthable, omniauth_providers: %i(google)
+         :trackable, :omniauthable, omniauth_providers: %i(google wechat)
   has_many :results, foreign_key: 'user_id', dependent: :destroy
   has_many :favorites, foreign_key: 'user_id', dependent: :destroy
   has_many :qas, through: :favorites, foreign_key: 'user_id', dependent: :destroy
